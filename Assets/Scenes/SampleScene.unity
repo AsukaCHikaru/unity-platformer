@@ -3769,6 +3769,11 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.37
       objectReference: {fileID: 0}
+    - target: {fileID: 4943983846831118936, guid: 55414bce0dab4154c92bb66b1132ee42,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4943983846831118937, guid: 55414bce0dab4154c92bb66b1132ee42,
         type: 3}
       propertyPath: maxMspd
@@ -3793,6 +3798,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gravity
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943983846831118937, guid: 55414bce0dab4154c92bb66b1132ee42,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4943983846831179965, guid: 55414bce0dab4154c92bb66b1132ee42,
         type: 3}
@@ -3832,7 +3842,7 @@ PrefabInstance:
     - target: {fileID: 4943983846831213359, guid: 55414bce0dab4154c92bb66b1132ee42,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.17
       objectReference: {fileID: 0}
     - target: {fileID: 4943983846831213359, guid: 55414bce0dab4154c92bb66b1132ee42,
         type: 3}

@@ -31,11 +31,11 @@ namespace Player
             controller = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
             attackController = GetComponent<AttackController>();
+            playerRb = GetComponent<Rigidbody>();
         }
 
         void FixedUpdate()
         {
-
             GetInput();
             if (controller.isGrounded)
             {
@@ -47,7 +47,7 @@ namespace Player
             }
             else
             {
-                if(fsm.currState != PlayerStateMachine.playerState.attackState) vertSpd -= gravity;
+                vertSpd -= gravity;
                 controller.Move(new Vector3(currMspd * currDirection * Time.deltaTime, vertSpd * Time.deltaTime, 0));
             }
             // if (!controller.isGrounded)
@@ -75,6 +75,9 @@ namespace Player
                 )
                 {
                     SetCurrState(PlayerStateMachine.playerState.runState);
+                }
+                if (fsm.currState == PlayerStateMachine.playerState.runState)
+                {
                     currMspd += mspdAcc;
                     if (currMspd > maxMspd) currMspd = maxMspd;
                     if (inputX > 0)
@@ -86,6 +89,7 @@ namespace Player
                         currDirection = -1;
                     }
                     transform.rotation = Quaternion.Euler(0, 90 * currDirection, 0);
+
                 }
             }
             else
@@ -111,9 +115,12 @@ namespace Player
                 }
             }
             // Attack
-            if (Input.GetMouseButton(0) && fsm.currState != PlayerStateMachine.playerState.attackState)
-            {                
-                
+            if (
+                Input.GetMouseButton(0) &&
+                fsm.currState != PlayerStateMachine.playerState.attackState &&
+                fsm.currState != PlayerStateMachine.playerState.jumpState
+            )
+            {
                 Attack();
             }
             // if (inputX != 0)
@@ -154,7 +161,7 @@ namespace Player
             //     vertSpd = jumpSpd;
             //     Jump();
             // }
-            
+
         }
 
         void SetCurrState(PlayerStateMachine.playerState newState)
@@ -182,10 +189,11 @@ namespace Player
 
         IEnumerator AttackPeriod()
         {
-            if(fsm.currState == PlayerStateMachine.playerState.jumpState){
-                    vertSpd = 0;
-                    gravity = 0;
-                }
+            if (fsm.currState == PlayerStateMachine.playerState.jumpState)
+            {
+                vertSpd = 0;
+                gravity = 0;
+            }
             SetCurrState(PlayerStateMachine.playerState.attackState);
             yield return new WaitForSeconds(1);
             SetCurrState(PlayerStateMachine.playerState.idleState);
